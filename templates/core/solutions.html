@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Technology Solutions | Aurex Core New Zealand{% endblock %}
+{% block meta_description %}Explore Aurex Core solutions across AI and automation, cloud infrastructure, cybersecurity, modern workplace systems, networking, devices, and operational technology support.{% endblock %}
+{% block canonical_path %}/solutions{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section class="pt-40 pb-20 bg-warm-ivory">
+  <div class="container-site">
+    <div class="max-w-3xl">
+      <span class="eyebrow reveal">Our solutions</span>
+      <h1 class="font-sora font-bold text-graphite text-4xl sm:text-5xl lg:text-[3.25rem] leading-[1.1] tracking-tight mb-5 reveal" data-delay="0.06">
+        Solutions designed for secure, intelligent business operations
+      </h1>
+      <p class="font-inter text-slate text-lg leading-relaxed reveal" data-delay="0.12">
+        Aurex Core delivers integrated technology solutions that help New Zealand businesses strengthen infrastructure, reduce manual effort, improve security, and create more scalable operating environments.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Divider -->
+<div class="divider"></div>
+
+<!-- Solutions list -->
+<section class="section-pad bg-ivory">
+  <div class="container-site">
+    <div class="flex flex-col gap-10">
+
+      {% for solution in solutions %}
+      <div class="grid lg:grid-cols-2 gap-10 items-center {% if forloop.even %}lg:flex-row-reverse{% endif %} reveal">
+        <!-- Content -->
+        <div class="{% if forloop.even %}lg:order-2{% endif %}">
+          <div class="w-12 h-12 rounded-2xl bg-teal/10 flex items-center justify-center mb-6">
+            {{ solution.icon_html }}
+          </div>
+          <h2 class="font-sora font-bold text-graphite text-2xl sm:text-3xl leading-tight mb-4">{{ solution.title }}</h2>
+          <p class="font-inter text-slate text-base leading-relaxed mb-6">{{ solution.body }}</p>
+          <ul class="flex flex-col gap-2 mb-7">
+            {% for outcome in solution.outcomes %}
+            <li class="flex items-center gap-3 font-inter text-sm text-graphite">
+              <svg class="w-4 h-4 text-teal flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+              </svg>
+              {{ outcome }}
+            </li>
+            {% endfor %}
+          </ul>
+          <a href="{{ solution.url }}" class="btn-primary">Learn More</a>
+        </div>
+        <!-- Visual panel -->
+        <div class="{% if forloop.even %}lg:order-1{% endif %} rounded-3xl overflow-hidden aspect-video bg-gradient-to-br from-teal/5 to-aqua/10 flex items-center justify-center">
+          <div class="text-center p-10">
+            <div class="w-20 h-20 rounded-3xl bg-teal/10 flex items-center justify-center mx-auto mb-4">
+              {{ solution.icon_html }}
+            </div>
+            <p class="font-inter text-slate text-sm">{{ solution.title }}</p>
+          </div>
+        </div>
+      </div>
+
+      {% if not forloop.last %}<hr class="divider">{% endif %}
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+<!-- Bottom CTA -->
+<section class="section-pad bg-teal-wash border-t border-border">
+  <div class="container-site text-center">
+    <p class="font-sora font-semibold text-graphite text-xl mb-6 reveal">Need guidance on where to start?</p>
+    <a href="{% url 'contact' %}" class="btn-primary reveal" data-delay="0.06">Book a Strategy Call</a>
+  </div>
+</section>
+
+{% endblock %}

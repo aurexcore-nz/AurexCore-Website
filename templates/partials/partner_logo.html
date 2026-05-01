@@ -1,0 +1,9 @@
+{% load static %}
+<div class="partner-logo-img">
+  <img
+    src="{% static 'images/partners/'|add:slug|add:'.png' %}"
+    alt="{{ name }}"
+    onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+  >
+  <span class="partner-name-fallback" style="display:none;">{{ name }}</span>
+</div>

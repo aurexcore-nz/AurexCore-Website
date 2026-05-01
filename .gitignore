@@ -1,0 +1,30 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+db.sqlite3
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+
+# Environment
+.env
+
+# Django generated
+staticfiles/
+media/
+
+# Binary/planning files
+*.pdf
+*.mp4
+
+# Planning docs
+ARCHITECTURE.md
+INDEX.md
+QUICKSTART.md
+UNUSED_FILES_ANALYSIS.md
+VISUAL_ARCHITECTURE.md

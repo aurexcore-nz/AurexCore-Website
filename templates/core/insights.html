@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Insights | AI, Cloud, Cybersecurity and IT Strategy | Aurex Core{% endblock %}
+{% block meta_description %}Read practical insights from Aurex Core on AI readiness, automation, cloud infrastructure, cybersecurity, Microsoft 365, and business technology strategy.{% endblock %}
+{% block canonical_path %}/insights{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section class="pt-40 pb-16 bg-warm-ivory">
+  <div class="container-site">
+    <div class="max-w-3xl">
+      <span class="eyebrow reveal">Insights</span>
+      <h1 class="font-sora font-bold text-graphite text-4xl sm:text-5xl lg:text-[3rem] leading-[1.1] tracking-tight mb-5 reveal" data-delay="0.06">
+        Practical insights for modern technology decision-making
+      </h1>
+      <p class="font-inter text-slate text-lg leading-relaxed reveal" data-delay="0.12">
+        Explore practical thinking on AI readiness, intelligent automation, infrastructure modernisation, workplace systems, cybersecurity resilience, and connected operating environments.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Articles grid -->
+<section class="section-pad bg-ivory">
+  <div class="container-site">
+    {% if posts %}
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for post in posts %}
+      <article class="card p-7 flex flex-col gap-4 group reveal" data-delay="{{ forloop.counter0|floatformat:2 }}">
+        <div class="flex items-center justify-between">
+          <span class="tag">{{ post.category }}</span>
+          <span class="font-inter text-xs text-slate">{{ post.date|date:"d M Y" }}</span>
+        </div>
+        <h2 class="font-sora font-semibold text-graphite text-lg leading-snug group-hover:text-teal transition-colors">
+          <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+        </h2>
+        <p class="font-inter text-slate text-sm leading-relaxed flex-1">{{ post.excerpt }}</p>
+        <a href="{{ post.get_absolute_url }}" class="btn-ghost text-xs mt-auto">
+          Read more
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <!-- Coming soon state with topic teasers -->
+    <div class="max-w-3xl mx-auto">
+      <p class="font-inter text-slate text-base mb-10 text-center reveal">Insights content is coming soon. Topics we will be covering:</p>
+      <div class="grid sm:grid-cols-2 gap-4">
+        {% for topic in insight_topics %}
+        <div class="card p-5 flex items-start gap-3 reveal" data-delay="{{ forloop.counter0|floatformat:2 }}">
+          <svg class="w-4 h-4 text-teal flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+          </svg>
+          <p class="font-inter text-graphite text-sm leading-snug">{{ topic }}</p>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="text-center mt-12 reveal">
+        <p class="font-inter text-slate text-sm mb-5">In the meantime, talk to Aurex Core directly about your technology priorities.</p>
+        <a href="{% url 'contact' %}" class="btn-primary">Contact Aurex Core</a>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}

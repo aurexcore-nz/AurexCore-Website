@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-NZ" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Aurex Core{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}{% endblock %}">
+  <meta name="robots" content="noindex, follow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-ivory antialiased">
+
+<!-- Minimal header for landing pages -->
+<header class="bg-warm-ivory border-b border-border">
+  <div class="container-site">
+    <div class="flex items-center justify-between h-[64px]">
+      <a href="{% url 'home' %}" class="flex items-center gap-2">
+        <img src="{% static 'images/aurex-nav-logo.png' %}" alt="Aurex Core" class="nav-logo-motion h-8 w-auto" onerror="this.style.display='none'">
+        <span class="font-sora font-semibold text-graphite"><span class="text-teal">Aurex</span> Core</span>
+      </a>
+      <a href="{% url 'home' %}" class="font-inter text-sm text-slate hover:text-teal transition-colors">Back to site</a>
+    </div>
+  </div>
+</header>
+
+<main>{% block content %}{% endblock %}</main>
+
+<!-- Minimal footer -->
+<footer class="bg-[#ECF0F1] border-t border-border py-6">
+  <div class="container-site text-center">
+    <p class="font-inter text-xs text-slate/60">&copy; {% now "Y" %} Aurex Core Limited. All rights reserved. | New Zealand</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

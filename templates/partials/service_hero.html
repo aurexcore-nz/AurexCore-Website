@@ -1,0 +1,24 @@
+{% load static %}
+<section class="relative pt-40 pb-20 bg-warm-ivory overflow-hidden">
+  <div class="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-teal/5 blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none"></div>
+  <div class="container-site relative z-10">
+    <div class="max-w-3xl">
+      <a href="{% url 'solutions' %}" class="btn-ghost text-xs mb-6 inline-flex">
+        <svg class="w-3.5 h-3.5 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+        All Solutions
+      </a>
+      <span class="eyebrow reveal">{{ eyebrow }}</span>
+      <h1 class="font-sora font-bold text-graphite text-4xl sm:text-5xl lg:text-[3rem] leading-[1.1] tracking-tight mb-5 reveal" data-delay="0.06">
+        {{ heading }}
+      </h1>
+      <p class="font-inter text-slate text-lg leading-relaxed reveal" data-delay="0.12">{{ body }}</p>
+      {% if cta_label %}
+      <div class="mt-8 reveal" data-delay="0.18">
+        <a href="{% url 'contact' %}" class="btn-primary">{{ cta_label }}</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>

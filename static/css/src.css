@@ -1,0 +1,655 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    @apply bg-ivory text-graphite font-inter;
+    overflow-x: hidden;
+  }
+  /* Grain/noise texture overlay — subtle film-grain for premium depth */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9990;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+  }
+  h1, h2, h3, h4, h5, h6 { @apply font-sora; }
+}
+
+@layer components {
+  /* ── Buttons ──────────────────────────────────────────── */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-white font-inter font-semibold text-sm tracking-wide
+           transition-all duration-300 ease-premium
+           hover:-translate-y-0.5 hover:scale-[1.02]
+           focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2;
+    background: linear-gradient(135deg, #0F8D8A 0%, #0B6664 100%);
+    box-shadow: 0 4px 16px rgba(15,141,138,0.35), 0 1px 3px rgba(15,141,138,0.2);
+    letter-spacing: 0.02em;
+  }
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #0d7f7c 0%, #095a58 100%);
+    box-shadow: 0 8px 28px rgba(15,141,138,0.5), 0 2px 6px rgba(15,141,138,0.25);
+  }
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-7 py-3.5 rounded-full border-2 border-teal text-teal font-inter font-semibold text-sm tracking-wide
+           bg-transparent transition-all duration-300 ease-premium
+           hover:text-white hover:-translate-y-0.5 hover:scale-[1.02]
+           focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2;
+    letter-spacing: 0.02em;
+  }
+  .btn-secondary:hover {
+    background: linear-gradient(135deg, #0F8D8A 0%, #0B6664 100%);
+    border-color: transparent;
+    box-shadow: 0 4px 16px rgba(15,141,138,0.3);
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 text-teal font-inter font-semibold text-sm tracking-wide
+           transition-all duration-200 ease-premium hover:gap-3;
+  }
+
+  /* ── Cards ────────────────────────────────────────────── */
+  .card {
+    @apply bg-card-white rounded-card border border-border shadow-card
+           transition-all duration-300 ease-premium
+           hover:shadow-card-hover hover:-translate-y-1;
+  }
+  .card-glass {
+    @apply rounded-card border border-white/25 backdrop-blur-sm
+           transition-all duration-300 ease-premium
+           hover:-translate-y-1;
+    background: rgba(255,255,255,0.12);
+    box-shadow: 0 8px 32px rgba(15,141,138,0.12), inset 0 1px 0 rgba(255,255,255,0.22);
+  }
+  .card-dark {
+    @apply bg-graphite rounded-card border border-white/10 shadow-card
+           transition-all duration-300 ease-premium
+           hover:shadow-card-hover hover:-translate-y-1;
+  }
+
+  /* ── Layout ────────────────────────────────────────────── */
+  .section-pad { @apply py-20 md:py-28; }
+  .container-site { @apply max-w-7xl mx-auto px-5 sm:px-8 lg:px-12; }
+
+  /* ── Eyebrow ───────────────────────────────────────────── */
+  .eyebrow {
+    @apply text-teal font-inter font-medium text-xs tracking-widest uppercase mb-3 block;
+  }
+  .eyebrow-white {
+    @apply text-aqua font-inter font-medium text-xs tracking-widest uppercase mb-3 block;
+  }
+
+  /* ── Nav ───────────────────────────────────────────────── */
+  .nav-link {
+    @apply text-graphite font-inter font-medium text-sm tracking-wide
+           transition-colors duration-200 hover:text-teal relative
+           after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px
+           after:bg-teal after:transition-all after:duration-300 hover:after:w-full;
+  }
+
+  /* ── Form ──────────────────────────────────────────────── */
+  .form-input {
+    @apply w-full bg-warm-ivory border border-border rounded-xl px-5 py-3.5
+           text-graphite font-inter text-sm placeholder-slate
+           focus:outline-none focus:ring-2 focus:ring-teal focus:border-teal
+           transition-all duration-200;
+  }
+  .divider { @apply border-t border-border; }
+  .tag { @apply inline-block px-3 py-1 rounded-full bg-teal/10 text-teal text-xs font-inter font-medium; }
+  .step-num {
+    @apply w-10 h-10 rounded-full bg-teal/10 text-teal font-sora font-semibold text-sm
+           flex items-center justify-center flex-shrink-0;
+  }
+
+  /* ── Pill / badge ──────────────────────────────────────── */
+  .pill {
+    @apply inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full
+           bg-white/10 border border-white/20 text-white/80 text-xs font-inter tracking-wide;
+  }
+
+  /* ── Stat card ─────────────────────────────────────────── */
+  .stat-card {
+    @apply flex flex-col items-center justify-center text-center p-6 rounded-2xl
+           border border-border bg-card-white;
+  }
+
+  /* ── Partner logo cell ─────────────────────────────────── */
+  .partner-logo {
+    @apply flex items-center justify-center px-8 py-5 rounded-2xl
+           border border-border bg-card-white transition-all duration-300
+           hover:border-teal/30 hover:shadow-card-hover hover:-translate-y-0.5;
+  }
+  .partner-logo-img {
+    @apply flex-shrink-0 flex items-center justify-center mx-2 rounded-2xl
+           border border-border bg-card-white min-w-[130px] h-[80px] px-4
+           transition-all duration-300
+           hover:border-teal/30 hover:shadow-card-hover hover:-translate-y-0.5;
+  }
+  .partner-logo-img img {
+    @apply max-h-[70px] w-auto object-contain opacity-100
+           transition-all duration-300;
+  }
+  .partner-logo-img:hover img {
+    @apply opacity-100;
+  }
+  .partner-logo-img .partner-name-fallback {
+    @apply font-sora font-semibold text-slate text-sm tracking-wide select-none
+           transition-colors duration-200;
+  }
+  .partner-logo-img:hover .partner-name-fallback {
+    @apply text-teal;
+  }
+
+  /* ── Location node ─────────────────────────────────────── */
+  .loc-node {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+  }
+  .loc-node .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #0F8D8A;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+  }
+  .loc-node .pulse {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1.5px solid #0F8D8A;
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    animation: locPulse 2.5s ease-out infinite;
+    opacity: 0;
+  }
+  .loc-node .pulse2 {
+    animation-delay: 0.8s;
+  }
+
+  /* ── Marquee ───────────────────────────────────────────── */
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    will-change: transform;
+  }
+}
+
+@layer utilities {
+  /* ── GSAP reveal helpers ─────────────────────────────── */
+  /* Initial invisible states are set by GSAP (gsap.set) in JS,
+     not by CSS — so content stays visible if JS doesn't load. */
+  .reveal, .reveal-left, .reveal-right, .reveal-scale {
+    will-change: opacity, transform;
+  }
+
+  /* ── Text gradient ───────────────────────────────────── */
+  .text-gradient {
+    background: linear-gradient(135deg, #0F8D8A 0%, #7ED6CF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-gradient-white {
+    background: linear-gradient(135deg, #ffffff 0%, #7ED6CF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Backgrounds ─────────────────────────────────────── */
+  .bg-teal-wash {
+    background: linear-gradient(135deg, #0F8D8A08 0%, #7ED6CF12 100%);
+  }
+  .bg-deep-gradient {
+    background: linear-gradient(160deg, #0d2426 0%, #182126 60%, #0B4442 100%);
+  }
+  .bg-hero-gradient {
+    background: radial-gradient(ellipse 80% 60% at 60% -10%, #0F8D8A14 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 0% 80%, #C8B79E18 0%, transparent 60%),
+                #F0F4F5;
+  }
+
+  /* ── Hex pattern overlay ─────────────────────────────── */
+  .hex-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52' viewBox='0 0 60 52'%3E%3Cpolygon points='30,2 56,16 56,36 30,50 4,36 4,16' fill='none' stroke='%230F8D8A' stroke-width='0.6' opacity='0.18'/%3E%3C/svg%3E");
+    background-size: 60px 52px;
+  }
+  .hex-overlay-dark {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52' viewBox='0 0 60 52'%3E%3Cpolygon points='30,2 56,16 56,36 30,50 4,36 4,16' fill='none' stroke='%237ED6CF' stroke-width='0.5' opacity='0.12'/%3E%3C/svg%3E");
+    background-size: 60px 52px;
+  }
+  .hex-overlay-lg {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='104' viewBox='0 0 120 104'%3E%3Cpolygon points='60,4 112,32 112,72 60,100 8,72 8,32' fill='none' stroke='%230F8D8A' stroke-width='0.8' opacity='0.10'/%3E%3C/svg%3E");
+    background-size: 120px 104px;
+  }
+
+  /* ── Floating hex shapes ─────────────────────────────── */
+  .hex-shape {
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    will-change: transform;
+  }
+
+  /* ── Glow ────────────────────────────────────────────── */
+  .glow-teal {
+    box-shadow: 0 0 40px rgba(15,141,138,0.25), 0 0 80px rgba(15,141,138,0.10);
+  }
+  .glow-teal-sm {
+    box-shadow: 0 0 20px rgba(15,141,138,0.20);
+  }
+
+  /* ── Counter ─────────────────────────────────────────── */
+  .counter-num {
+    font-variant-numeric: tabular-nums;
+    display: inline-block;
+  }
+
+  /* ── NZ map ──────────────────────────────────────────── */
+  .nz-map-container {
+    position: relative;
+    display: block;
+  }
+
+  /* ── Map marker — glowing dot with pulse rings ──────────── */
+  .map-marker {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+  }
+  .map-marker .marker-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle at 35% 35%, #7ED6CF, #0F8D8A);
+    box-shadow: 0 0 6px 2px rgba(15,141,138,0.5),
+                0 0 14px 4px rgba(126,214,207,0.25);
+    z-index: 3;
+    animation: dotGlow 2.5s ease-in-out infinite;
+  }
+  .map-marker .marker-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    border: 1.5px solid rgba(15,141,138,0.6);
+    animation: markerPulse 2.5s ease-out infinite;
+    z-index: 2;
+  }
+  .map-marker .marker-ring--delay {
+    animation-delay: 1s;
+  }
+  .map-marker:hover .marker-dot {
+    background: radial-gradient(circle at 35% 35%, #a5e8e2, #0F8D8A);
+    box-shadow: 0 0 10px 3px rgba(15,141,138,0.7),
+                0 0 22px 8px rgba(126,214,207,0.4);
+    transform: translate(-50%, -50%) scale(1.3);
+    transition: all 0.3s ease;
+  }
+
+  /* ── City label tooltip on hover ───────────────────────── */
+  .map-marker::after {
+    content: attr(data-city);
+    position: absolute;
+    bottom: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    padding: 3px 10px;
+    border-radius: 6px;
+    background: #0B4442;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    box-shadow: 0 2px 8px rgba(11,68,66,0.35);
+    z-index: 20;
+  }
+  .map-marker:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* ── Keyframes ────────────────────────────────────────────── */
+@keyframes dotGlow {
+  0%, 100% {
+    box-shadow: 0 0 6px 2px rgba(15,141,138,0.5),
+                0 0 14px 4px rgba(126,214,207,0.25);
+  }
+  50% {
+    box-shadow: 0 0 10px 4px rgba(15,141,138,0.7),
+                0 0 24px 8px rgba(126,214,207,0.45);
+  }
+}
+
+@keyframes markerPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.7;
+    border-color: rgba(15,141,138,0.6);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(3.5);
+    opacity: 0;
+    border-color: rgba(126,214,207,0.1);
+  }
+}
+
+@keyframes locPulse {
+  0%   { transform: scale(1);   opacity: 0.7; }
+  100% { transform: scale(3.5); opacity: 0;   }
+}
+/* Ensure SVG pulse rings scale from their own centre */
+circle[style*="locPulse"] {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes hexFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33%       { transform: translateY(-18px) rotate(3deg); }
+  66%       { transform: translateY(-8px) rotate(-2deg); }
+}
+
+@keyframes hexFloat2 {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%       { transform: translateY(22px) rotate(-4deg); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Floating hex shapes (pure CSS fallback) ──────────────── */
+.hex-float-1 { animation: hexFloat  8s ease-in-out infinite; }
+.hex-float-2 { animation: hexFloat2 10s ease-in-out infinite; animation-delay: -3s; }
+.hex-float-3 { animation: hexFloat  12s ease-in-out infinite; animation-delay: -6s; }
+.hex-float-4 { animation: hexFloat2 9s ease-in-out infinite; animation-delay: -1.5s; }
+
+/* ── Marquee scrolling ────────────────────────────────────── */
+.marquee-animate {
+  animation: marqueeScroll 50s linear infinite;
+}
+.marquee-animate:hover {
+  animation-play-state: paused;
+}
+
+/* ── Shimmer loading / highlight ─────────────────────────── */
+.shimmer-text {
+  background: linear-gradient(90deg, #0F8D8A 0%, #7ED6CF 40%, #0F8D8A 80%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ── Section transition gradient ─────────────────────────── */
+.section-fade-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, #F0F4F5);
+  pointer-events: none;
+}
+
+/* ── Line connector (process steps) ──────────────────────── */
+.process-connector {
+  position: absolute;
+  top: 20px;
+  left: calc(50% + 24px);
+  right: calc(-50% + 24px);
+  height: 1px;
+  background: linear-gradient(to right, #0F8D8A40, #E6DED2);
+}
+
+/* ── Teal border-left accent ──────────────────────────────── */
+.border-l-teal { border-left: 3px solid #0F8D8A; }
+
+/* ── Responsive: reduce decoration on mobile ─────────────── */
+@media (max-width: 768px) {
+  .hex-float-1,
+  .hex-float-2,
+  .hex-float-3,
+  .hex-float-4 { animation: none; opacity: 0.04 !important; }
+  .hex-overlay, .hex-overlay-lg { opacity: 0.5; }
+}
+
+/* ── Custom cursor ────────────────────────────────────────── */
+.cursor-dot {
+  position: fixed;
+  width: 9px;
+  height: 9px;
+  background: #0F8D8A;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  transition: width 0.18s cubic-bezier(0.16,1,0.3,1),
+              height 0.18s cubic-bezier(0.16,1,0.3,1),
+              background 0.18s ease, opacity 0.25s ease;
+}
+.cursor-ring {
+  position: fixed;
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid rgba(15,141,138,0.45);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9997;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  transition: width 0.3s cubic-bezier(0.16,1,0.3,1),
+              height 0.3s cubic-bezier(0.16,1,0.3,1),
+              border-color 0.2s ease, opacity 0.25s ease;
+}
+/* Hover state — expand on interactive elements */
+body.cursor-hover .cursor-dot {
+  width: 18px;
+  height: 18px;
+  background: #0B6664;
+}
+body.cursor-hover .cursor-ring {
+  width: 48px;
+  height: 48px;
+  border-color: rgba(15,141,138,0.25);
+}
+/* Click state — shrink */
+body.cursor-click .cursor-dot {
+  width: 7px;
+  height: 7px;
+}
+/* Hide on touch devices */
+@media (pointer: coarse) {
+  .cursor-dot, .cursor-ring { display: none; }
+}
+
+/* ── Scroll progress bar ─────────────────────────────────── */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, #0B6664, #0F8D8A, #7ED6CF);
+  z-index: 201;
+  pointer-events: none;
+  transition: width 0.06s linear;
+}
+
+/* ── 3D Preloader ───────────────────────────────────────── */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #FFFFFF;
+  overflow: hidden;
+}
+.preloader.is-done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+.pl-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.pl-wordmark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(calc(-50% + 8vw), -50%) translateX(14px);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', 'Sora', system-ui, sans-serif;
+  color: #163F3F;
+  opacity: 0;
+  pointer-events: none;
+  line-height: 1;
+  will-change: opacity, transform;
+}
+.pl-wordmark-aurex {
+  font-size: clamp(28px, 4.4vw, 52px);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+.pl-wordmark-core {
+  font-size: clamp(22px, 3.2vw, 38px);
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  margin-top: 0.35em;
+  color: #2E7F7F;
+}
+.pl-l {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(6px);
+  will-change: opacity, transform;
+}
+/* Hide reveal-animation targets from the start — prevents the "content flashes
+   visible, then resets to animate in" flicker while the preloader fades out.
+   JS enables these when GSAP is unavailable (see initGSAP fallback in main.js). */
+.reveal, .reveal-left, .reveal-right, .reveal-scale { opacity: 0; }
+
+/* Subtle cinematic vignette — darkens screen corners, focuses the eye on the logo. */
+.preloader::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(10,30,40,0.10) 100%);
+}
+.pl-fallback {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.pl-fallback.is-active {
+  opacity: 1;
+  animation: preloaderLogoFade 1.4s ease-out both;
+}
+.pl-fallback img {
+  width: 180px;
+  max-width: 60vw;
+  height: auto;
+  display: block;
+}
+.pl-fallback-static { opacity: 1; }
+@keyframes preloaderLogoFade {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.96); }
+  30%  { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .preloader { display: none !important; }
+}
+
+/* ── Form focus glow ────────────────────────────────────── */
+.form-input:focus {
+  box-shadow: 0 0 0 3px rgba(15,141,138,0.08);
+}
+.form-input.has-value {
+  border-color: #0B6664;
+}
+
+/* ── Nav logo premium motion ──────────────────────────────── */
+@keyframes navLogoFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-2.5px); }
+}
+@keyframes navLogoGlint {
+  0%, 82%, 100% { filter: drop-shadow(0 0 0 rgba(15,141,138,0)); }
+  88%           { filter: drop-shadow(0 0 10px rgba(15,141,138,0.45)); }
+  94%           { filter: drop-shadow(0 0 3px rgba(15,141,138,0.18)); }
+}
+.nav-logo-motion {
+  animation: navLogoFloat 4.2s ease-in-out infinite,
+             navLogoGlint 7s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform, filter;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+              filter 0.35s ease;
+}
+.nav-logo-motion:hover {
+  animation: none;
+  transform: translateY(-3px) scale(1.06);
+  filter: drop-shadow(0 6px 16px rgba(15,141,138,0.4));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hex-float-1, .hex-float-2, .hex-float-3, .hex-float-4,
+  .marquee-animate, .shimmer-text, .loc-node .pulse,
+  .nav-logo-motion { animation: none !important; }
+  .cursor-dot, .cursor-ring { display: none; }
+  .preloader { display: none; }
+  body::before { display: none; }
+}

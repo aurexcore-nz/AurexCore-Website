@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Networking, Devices and IT Infrastructure NZ | Aurex Core{% endblock %}
+{% block meta_description %}Aurex Core provides networking, Wi-Fi, device lifecycle management, POS systems, printing, structured cabling, fibre splicing, and operational infrastructure support.{% endblock %}
+{% block canonical_path %}/networking-devices-physical-infrastructure{% endblock %}
+
+{% block content %}
+{% include "partials/service_hero.html" with eyebrow="Networking, Devices and Physical Infrastructure" heading="The operational technology layer behind reliable business performance" body="Strong day-to-day operations still depend on dependable networks, secure devices, fit-for-purpose connectivity, and properly executed physical infrastructure." cta_label="Contact Aurex Core" %}
+
+<section class="section-pad bg-ivory">
+  <div class="container-site">
+    <div class="max-w-2xl mx-auto text-center mb-14">
+      <h2 class="font-sora font-bold text-graphite text-3xl sm:text-4xl leading-tight mb-5 reveal">The foundation that users and systems rely on every day</h2>
+      <p class="font-inter text-slate text-base leading-relaxed reveal" data-delay="0.06">Even the best applications and platforms will underperform if the underlying network, endpoint, and physical environment are unstable or poorly structured. Aurex Core supports the technology layer that enables reliable day-to-day operations.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {% include "partials/capability_grid.html" with capabilities=capabilities %}
+    </div>
+  </div>
+</section>
+
+<section class="section-pad bg-warm-ivory">
+  <div class="container-site">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
+      <div>
+        <span class="eyebrow reveal">Business outcomes</span>
+        <h2 class="font-sora font-bold text-graphite text-3xl leading-tight mb-5 reveal" data-delay="0.06">What strong operational infrastructure delivers</h2>
+        <ul class="flex flex-col gap-3 reveal" data-delay="0.12">
+          {% for outcome in outcomes %}
+          <li class="flex items-center gap-3 font-inter text-sm text-graphite">
+            <svg class="w-4 h-4 text-teal flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+            </svg>
+            {{ outcome }}
+          </li>
+          {% endfor %}
+        </ul>
+        <p class="font-inter text-slate text-xs mt-5 italic">This is a supporting capability — the physical and connectivity foundation that enables all other systems to perform reliably.</p>
+      </div>
+      <div class="card p-8 reveal" data-delay="0.08">
+        <h3 class="font-sora font-semibold text-graphite text-xl mb-4">Talk to Aurex Core about your infrastructure</h3>
+        <p class="font-inter text-slate text-sm leading-relaxed mb-6">Whether you need better network performance, device standardisation, or physical infrastructure support, we can help define and deliver the right solution.</p>
+        <a href="{% url 'contact' %}" class="btn-primary">Start the Conversation</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

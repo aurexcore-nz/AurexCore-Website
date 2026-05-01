@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Contact Aurex Core | Book a Strategy Call{% endblock %}
+{% block meta_description %}Contact Aurex Core to discuss AI, automation, cloud, infrastructure, cybersecurity, or
+modern workplace solutions for your business.{% endblock %}
+{% block canonical_path %}/contact{% endblock %}
+
+{% block content %}
+
+<section class="pt-40 pb-20 bg-warm-ivory">
+  <div class="container-site">
+    <div class="grid lg:grid-cols-2 gap-14 items-start">
+
+      <!-- Left: copy -->
+      <div>
+        <span class="eyebrow reveal">Get in touch</span>
+        <h1 class="font-sora font-bold text-graphite text-4xl sm:text-5xl leading-[1.1] tracking-tight mb-5 reveal"
+          data-delay="0.06">
+          Start the conversation
+        </h1>
+        <p class="font-inter text-slate text-lg leading-relaxed mb-10 reveal" data-delay="0.12">
+          Whether you need support on an immediate technology priority or want to define a broader roadmap, Aurex Core
+          is ready to help.
+        </p>
+
+        <!-- What to expect -->
+        <div class="flex flex-col gap-5 reveal" data-delay="0.16">
+          <div class="flex items-start gap-4">
+            <div class="step-num flex-shrink-0">1</div>
+            <div>
+              <h3 class="font-sora font-semibold text-graphite text-base mb-1">Submit your enquiry</h3>
+              <p class="font-inter text-slate text-sm leading-relaxed">Tell us about your challenge, priority, or
+                opportunity. The more context, the better.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="step-num flex-shrink-0">2</div>
+            <div>
+              <h3 class="font-sora font-semibold text-graphite text-base mb-1">We will respond promptly</h3>
+              <p class="font-inter text-slate text-sm leading-relaxed">We aim to respond to all genuine business
+                enquiries quickly and directly.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="step-num flex-shrink-0">3</div>
+            <div>
+              <h3 class="font-sora font-semibold text-graphite text-base mb-1">Strategy call</h3>
+              <p class="font-inter text-slate text-sm leading-relaxed">We will discuss your environment, priorities, and
+                the right next steps for your business.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust statement -->
+        <p class="font-inter text-slate/60 text-xs italic mt-10 reveal" data-delay="0.2">
+          Built for real operating environments, not theory alone.
+        </p>
+      </div>
+
+      <!-- Right: form -->
+      <div class="card p-8 reveal" data-delay="0.08">
+        <h2 class="font-sora font-semibold text-graphite text-xl mb-2">Tell us what you are trying to improve, fix,
+          modernise, or automate</h2>
+        <p class="font-inter text-slate text-sm mb-7">Share the challenge, priority, or opportunity you would like to
+          discuss.</p>
+
+        {% if form_success %}
+        <div class="p-5 rounded-2xl bg-teal/10 border border-teal/30 text-center">
+          <svg class="w-10 h-10 text-teal mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="1.8" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p class="font-sora font-semibold text-graphite text-base mb-1">Thank you.</p>
+          <p class="font-inter text-slate text-sm">Your enquiry has been received and Aurex Core will be in touch
+            shortly.</p>
+        </div>
+        {% elif form_error %}
+        <div class="p-5 rounded-2xl bg-orange-50 border border-orange-200 text-center">
+          <svg class="w-10 h-10 text-orange-600 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="1.8" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+          </svg>
+          <p class="font-sora font-semibold text-orange-900 text-base mb-1">Thank you for your interest.</p>
+          <p class="font-inter text-orange-800 text-sm">Your enquiry has been saved. We'll contact you shortly. If you
+            need urgent assistance, please call us directly at 022 589 7366.</p>
+        </div>
+        {% else %}
+        <form method="post" action="" novalidate class="flex flex-col gap-5">
+          {% csrf_token %}
+
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label for="id_full_name" class="block font-inter text-sm font-medium text-graphite mb-1.5">Full Name
+                <span class="text-teal" aria-hidden="true">*</span></label>
+              <input type="text" name="full_name" id="id_full_name" class="form-input" placeholder="Jane Smith" required
+                autocomplete="name" value="{{ form.full_name.value|default:'' }}">
+              {% if form.full_name.errors %}<p class="mt-1 text-xs text-red-500">{{ form.full_name.errors|first }}</p>{% endif %}
+            </div>
+            <div>
+              <label for="id_company" class="block font-inter text-sm font-medium text-graphite mb-1.5">Company Name
+                <span class="text-teal" aria-hidden="true">*</span></label>
+              <input type="text" name="company" id="id_company" class="form-input" placeholder="Acme Limited" required
+                autocomplete="organization" value="{{ form.company.value|default:'' }}">
+              {% if form.company.errors %}<p class="mt-1 text-xs text-red-500">{{ form.company.errors|first }}</p>{% endif %}
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label for="id_email" class="block font-inter text-sm font-medium text-graphite mb-1.5">Email Address
+                <span class="text-teal" aria-hidden="true">*</span></label>
+              <input type="email" name="email" id="id_email" class="form-input" placeholder="jane@company.co.nz"
+                required autocomplete="email" value="{{ form.email.value|default:'' }}">
+              {% if form.email.errors %}<p class="mt-1 text-xs text-red-500">{{ form.email.errors|first }}</p>{% endif %}
+            </div>
+            <div>
+              <label for="id_phone" class="block font-inter text-sm font-medium text-graphite mb-1.5">Phone
+                Number</label>
+              <input type="tel" name="phone" id="id_phone" class="form-input" placeholder="+64 21 000 0000"
+                autocomplete="tel" value="{{ form.phone.value|default:'' }}">
+            </div>
+          </div>
+
+          <div>
+            <label for="id_help_topic" class="block font-inter text-sm font-medium text-graphite mb-1.5">What do you
+              need help with? <span class="text-teal" aria-hidden="true">*</span></label>
+            <select name="help_topic" id="id_help_topic" class="form-input" required>
+              <option value="" disabled {% if not form.help_topic.value %}selected{% endif %}>Select a topic</option>
+              <option value="ai_automation" {% if form.help_topic.value == "ai_automation" %}selected{% endif %}>AI and
+                Intelligent Automation</option>
+              <option value="cloud_infrastructure" {% if form.help_topic.value == "cloud_infrastructure" %}selected{% endif %}>Cloud, Infrastructure and Platform Engineering</option>
+              <option value="cybersecurity" {% if form.help_topic.value == "cybersecurity" %}selected{% endif %}>
+                Cybersecurity, Backup and Business Continuity</option>
+              <option value="modern_workplace" {% if form.help_topic.value == "modern_workplace" %}selected{% endif %}>
+                Modern Workplace and Business Applications</option>
+              <option value="networking" {% if form.help_topic.value == "networking" %}selected{% endif %}>Networking,
+                Devices and Physical Infrastructure</option>
+              <option value="strategy_call" {% if form.help_topic.value == "strategy_call" %}selected{% endif %}>General
+                Strategy Call</option>
+              <option value="other" {% if form.help_topic.value == "other" %}selected{% endif %}>Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="id_contact_method" class="block font-inter text-sm font-medium text-graphite mb-1.5">Preferred
+              contact method</label>
+            <select name="contact_method" id="id_contact_method" class="form-input">
+              <option value="email" {% if form.contact_method.value == "email" %}selected{% endif %}>Email</option>
+              <option value="phone" {% if form.contact_method.value == "phone" %}selected{% endif %}>Phone</option>
+              <option value="either" {% if form.contact_method.value == "either" or not form.contact_method.value %}selected{% endif %}>Either</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="id_message" class="block font-inter text-sm font-medium text-graphite mb-1.5">Project or
+              challenge summary <span class="text-teal" aria-hidden="true">*</span></label>
+            <textarea name="message" id="id_message" rows="5" class="form-input resize-none"
+              placeholder="Briefly describe what you are working on, what problem you are solving, or what outcome you are looking for."
+              required>{{ form.message.value|default:'' }}</textarea>
+            {% if form.message.errors %}<p class="mt-1 text-xs text-red-500">{{ form.message.errors|first }}</p>{% endif %}
+          </div>
+
+          <!-- Honeypot (anti-spam) -->
+          <div class="hidden" aria-hidden="true">
+            <input type="text" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="pt-2">
+            <button type="submit" class="btn-primary w-full justify-center text-base py-4">
+              Submit Enquiry
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+                aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </button>
+            <p class="font-inter text-xs text-slate/60 text-center mt-3">By submitting this form, you agree that Aurex
+              Core may use your details to respond to your enquiry.</p>
+          </div>
+        </form>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

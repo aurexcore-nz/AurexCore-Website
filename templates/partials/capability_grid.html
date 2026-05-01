@@ -1,0 +1,9 @@
+{% for cap in capabilities %}
+<div class="card p-6 reveal" data-delay="{{ forloop.counter0|floatformat:2 }}">
+  <div class="w-9 h-9 rounded-lg bg-teal/10 flex items-center justify-center mb-4">
+    <div class="w-2 h-2 rounded-full bg-teal"></div>
+  </div>
+  <h3 class="font-sora font-semibold text-graphite text-base mb-2">{{ cap.title }}</h3>
+  <p class="font-inter text-slate text-sm leading-relaxed">{{ cap.body }}</p>
+</div>
+{% endfor %}

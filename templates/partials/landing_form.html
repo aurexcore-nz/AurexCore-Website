@@ -1,0 +1,59 @@
+{% load static %}
+<div class="card p-8">
+  <h2 class="font-sora font-semibold text-graphite text-xl mb-2">{{ form_heading|default:"Tell us about your business" }}</h2>
+  <p class="font-inter text-slate text-sm mb-7">{{ form_sub|default:"Share details about your current environment and what you would like to improve." }}</p>
+
+  {% if form_success %}
+  <div class="p-5 rounded-2xl bg-teal/10 border border-teal/30 text-center">
+    <svg class="w-10 h-10 text-teal mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+    </svg>
+    <p class="font-sora font-semibold text-graphite text-base mb-1">Thank you.</p>
+    <p class="font-inter text-slate text-sm">Your enquiry has been received and Aurex Core will be in touch shortly.</p>
+  </div>
+  {% else %}
+  <form method="post" novalidate class="flex flex-col gap-5">
+    {% csrf_token %}
+    <input type="hidden" name="help_topic" value="{{ landing_topic }}">
+
+    <div class="grid sm:grid-cols-2 gap-5">
+      <div>
+        <label for="id_full_name_l" class="block font-inter text-sm font-medium text-graphite mb-1.5">Full Name <span class="text-teal" aria-hidden="true">*</span></label>
+        <input type="text" name="full_name" id="id_full_name_l" class="form-input" placeholder="Jane Smith" required autocomplete="name">
+      </div>
+      <div>
+        <label for="id_company_l" class="block font-inter text-sm font-medium text-graphite mb-1.5">Company Name <span class="text-teal" aria-hidden="true">*</span></label>
+        <input type="text" name="company" id="id_company_l" class="form-input" placeholder="Acme Limited" required autocomplete="organization">
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-5">
+      <div>
+        <label for="id_email_l" class="block font-inter text-sm font-medium text-graphite mb-1.5">Email <span class="text-teal" aria-hidden="true">*</span></label>
+        <input type="email" name="email" id="id_email_l" class="form-input" placeholder="jane@company.co.nz" required autocomplete="email">
+      </div>
+      <div>
+        <label for="id_phone_l" class="block font-inter text-sm font-medium text-graphite mb-1.5">Phone</label>
+        <input type="tel" name="phone" id="id_phone_l" class="form-input" placeholder="+64 21 000 0000" autocomplete="tel">
+      </div>
+    </div>
+
+    <div>
+      <label for="id_message_l" class="block font-inter text-sm font-medium text-graphite mb-1.5">Brief summary</label>
+      <textarea name="message" id="id_message_l" rows="4" class="form-input resize-none" placeholder="{{ form_placeholder|default:'Tell us about your current situation and what you are trying to achieve.' }}"></textarea>
+    </div>
+
+    <div class="hidden" aria-hidden="true">
+      <input type="text" name="website" tabindex="-1" autocomplete="off">
+    </div>
+
+    <button type="submit" class="btn-primary w-full justify-center text-base py-4">
+      {{ cta_label|default:"Book a Session" }}
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+      </svg>
+    </button>
+    <p class="font-inter text-xs text-slate/60 text-center">By submitting this form, you agree that Aurex Core may use your details to respond to your enquiry.</p>
+  </form>
+  {% endif %}
+</div>

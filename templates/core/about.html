@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About Aurex Core | Intelligent Technology Partner NZ{% endblock %}
+{% block meta_description %}Learn about Aurex Core, a New Zealand technology partner focused on AI, automation, cloud, infrastructure, cybersecurity, and scalable operating environments.{% endblock %}
+{% block canonical_path %}/about{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section class="pt-40 pb-20 bg-warm-ivory relative overflow-hidden">
+  <div class="absolute inset-0 bg-teal/3 pointer-events-none"></div>
+  <div class="container-site relative z-10">
+    <div class="max-w-3xl">
+      <span class="eyebrow reveal">About Aurex Core</span>
+      <h1 class="font-sora font-bold text-graphite text-4xl sm:text-5xl lg:text-[3rem] leading-[1.1] tracking-tight mb-5 reveal" data-delay="0.06">
+        A technology partner focused on intelligent, scalable business environments
+      </h1>
+      <p class="font-inter text-slate text-lg leading-relaxed reveal" data-delay="0.12">
+        Aurex Core exists to help businesses move beyond fragmented technology environments and toward more connected, secure, and intelligent operations.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- What we believe -->
+<section class="section-pad bg-ivory">
+  <div class="container-site">
+    <div class="grid lg:grid-cols-2 gap-20 items-start">
+      <div class="flex flex-col gap-12">
+        {% for belief in beliefs %}
+        <div class="reveal">
+          <h2 class="font-sora font-semibold text-teal text-xl mb-3">{{ belief.title }}</h2>
+          <p class="font-inter text-slate text-base leading-relaxed">{{ belief.body }}</p>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Brand statement panel -->
+      <div class="lg:sticky lg:top-28">
+        <div class="card p-10 bg-graphite reveal">
+          <p class="font-sora font-bold text-white text-2xl leading-snug mb-6">
+            "From fragmented systems to intelligent, scalable operations."
+          </p>
+          <p class="font-inter text-white/60 text-sm leading-relaxed mb-8">
+            Aurex Core brings strategy, implementation, and technology execution together so businesses can operate with more clarity, security, resilience, and control.
+          </p>
+          <div class="divider border-white/10 mb-8"></div>
+          <p class="font-inter text-white/40 text-xs italic">Built for real operating environments, not theory alone.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Team -->
+<section class="section-pad bg-warm-ivory border-t border-border">
+  <div class="container-site">
+    <div class="max-w-2xl mx-auto text-center mb-14">
+      <span class="eyebrow reveal">The team</span>
+      <h2 class="font-sora font-bold text-graphite text-3xl sm:text-4xl leading-tight reveal" data-delay="0.06">The people behind Aurex Core</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-3 gap-8">
+      {% for member in team_members %}
+      <div class="card p-8 text-center reveal" data-delay="{{ forloop.counter0|floatformat:2 }}">
+        <div class="w-24 h-24 rounded-full bg-gradient-to-br from-teal/20 to-aqua/30 mx-auto mb-5 overflow-hidden">
+          {% if member.photo %}
+          <img src="{{ member.photo }}" alt="{{ member.name }}" class="w-full h-full object-cover">
+          {% else %}
+          <div class="w-full h-full flex items-center justify-center">
+            <span class="font-sora font-bold text-teal text-2xl">{{ member.name|first }}</span>
+          </div>
+          {% endif %}
+        </div>
+        <h3 class="font-sora font-semibold text-graphite text-lg mb-1">{{ member.name }}</h3>
+        <p class="font-inter text-teal text-sm mb-4 italic">{{ member.role }}</p>
+        <p class="font-inter text-slate text-sm leading-relaxed">{{ member.bio }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section-pad bg-teal relative overflow-hidden">
+  <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 20% 50%, #7ED6CF 0%, transparent 60%)"></div>
+  <div class="container-site relative z-10 text-center">
+    <h2 class="font-sora font-bold text-white text-3xl sm:text-4xl mb-5 reveal">Ready to work with Aurex Core?</h2>
+    <p class="font-inter text-white/80 text-lg mb-8 max-w-xl mx-auto reveal" data-delay="0.06">We work with businesses that want more than a quick fix. Let us define the right next step together.</p>
+    <a href="{% url 'contact' %}" class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-teal font-inter font-semibold text-sm hover:bg-ivory transition-all duration-300 reveal" data-delay="0.12">
+      Book a Strategy Call
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
+{% endblock %}
