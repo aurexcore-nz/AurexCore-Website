@@ -364,7 +364,7 @@ def contact(request):
                         f"Message: {enquiry.message}\n"
                     ),
                     from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=['srilekha1260@gmail.com'],
+                    recipient_list=['hello@aurexcore.nz'],
                     fail_silently=False,
                 )
                 form_success = True
