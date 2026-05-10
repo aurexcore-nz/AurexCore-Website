@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build:css": "tailwindcss -i ./static/css/src.css -o ./static/css/main.css --minify",
-    "watch:css": "tailwindcss -i ./static/css/src.css -o ./static/css/main.css --watch"
+    "watch:css": "tailwindcss -i ./static/css/src.css -o ./static/css/main.css --watch",
+    "build:js": "esbuild static/js/preloader3d.js --bundle --minify --format=iife --outfile=static/js/preloader3d.bundle.min.js && esbuild static/js/main.js --minify --outfile=static/js/main.min.js",
+    "build": "npm run build:css && npm run build:js"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +16,9 @@
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.11",
     "autoprefixer": "^10.4.27",
+    "esbuild": "^0.28.0",
     "postcss": "^8.5.9",
-    "tailwindcss": "^3.4.19"
+    "tailwindcss": "^3.4.19",
+    "three": "^0.184.0"
   }
 }

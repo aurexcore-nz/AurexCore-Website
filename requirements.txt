@@ -5,3 +5,4 @@ sqlparse==0.5.5
 whitenoise==6.12.0
 psycopg2-binary==2.9.12
 gunicorn==21.2.0
+django-htmlmin==0.11.0

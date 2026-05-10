@@ -350,28 +350,31 @@ def contact(request):
         form = EnquiryForm(request.POST)
         if form.is_valid():
             try:
-                enquiry = form.save()  # Save to DB
-                # Send email
-                send_mail(
-                    subject='New Enquiry from Aurex Core Website',
-                    message=(
-                        f"Name: {enquiry.full_name}\n"
-                        f"Company: {enquiry.company}\n"
-                        f"Email: {enquiry.email}\n"
-                        f"Phone: {enquiry.phone}\n"
-                        f"Help Topic: {enquiry.help_topic}\n"
-                        f"Contact Method: {enquiry.contact_method}\n"
-                        f"Message: {enquiry.message}\n"
-                    ),
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=['hello@aurexcore.nz'],
-                    fail_silently=False,
-                )
+                enquiry = form.save()
+            except Exception:
+                form_error = True
+                enquiry = None
+            if enquiry:
                 form_success = True
                 form = EnquiryForm()
-            except Exception as e:
-                form_error = True
-                form = EnquiryForm()
+                try:
+                    send_mail(
+                        subject='New Enquiry from Aurex Core Website',
+                        message=(
+                            f"Name: {enquiry.full_name}\n"
+                            f"Company: {enquiry.company}\n"
+                            f"Email: {enquiry.email}\n"
+                            f"Phone: {enquiry.phone}\n"
+                            f"Help Topic: {enquiry.help_topic}\n"
+                            f"Contact Method: {enquiry.contact_method}\n"
+                            f"Message: {enquiry.message}\n"
+                        ),
+                        from_email=settings.DEFAULT_FROM_EMAIL,
+                        recipient_list=['hello@aurexcore.nz'],
+                        fail_silently=True,
+                    )
+                except Exception:
+                    pass
 
     return render(request, 'core/contact.html', {
         'form':         form,
@@ -393,24 +396,29 @@ def _landing_view(request, template, topic):
         if form.is_valid():
             try:
                 enquiry = form.save()
-                send_mail(
-                    subject='New Enquiry from Aurex Core Website',
-                    message=(
-                        f"Name: {enquiry.full_name}\n"
-                        f"Company: {enquiry.company}\n"
-                        f"Email: {enquiry.email}\n"
-                        f"Phone: {enquiry.phone}\n"
-                        f"Help Topic: {enquiry.help_topic}\n"
-                        f"Contact Method: {enquiry.contact_method}\n"
-                        f"Message: {enquiry.message}\n"
-                    ),
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=['hello@aurexcore.nz'],
-                    fail_silently=False,
-                )
-                form_success = True
-            except Exception as e:
+            except Exception:
                 form_error = True
+                enquiry = None
+            if enquiry:
+                form_success = True
+                try:
+                    send_mail(
+                        subject='New Enquiry from Aurex Core Website',
+                        message=(
+                            f"Name: {enquiry.full_name}\n"
+                            f"Company: {enquiry.company}\n"
+                            f"Email: {enquiry.email}\n"
+                            f"Phone: {enquiry.phone}\n"
+                            f"Help Topic: {enquiry.help_topic}\n"
+                            f"Contact Method: {enquiry.contact_method}\n"
+                            f"Message: {enquiry.message}\n"
+                        ),
+                        from_email=settings.DEFAULT_FROM_EMAIL,
+                        recipient_list=['hello@aurexcore.nz'],
+                        fail_silently=True,
+                    )
+                except Exception:
+                    pass
     return render(request, template, {
         'form_success': form_success,
         'form_error':   form_error,

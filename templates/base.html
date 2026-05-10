@@ -5,14 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-  <!-- SEO -->
   <title>{% block title %}Aurex Core | AI, Automation, Cloud and Cybersecurity Solutions NZ{% endblock %}</title>
   <meta name="description" content="{% block meta_description %}Aurex Core helps New Zealand businesses modernise operations through AI, intelligent automation, cloud infrastructure, cybersecurity, and connected technology systems.{% endblock %}">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.aurexcore.com{% block canonical_path %}{% endblock %}">
-
-  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Aurex Core">
   <meta property="og:title" content="{% block og_title %}Aurex Core | Intelligent Technology Systems NZ{% endblock %}">
@@ -22,27 +18,16 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:locale" content="en_NZ">
-
-  <!-- Twitter Cards -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{% block twitter_title %}Aurex Core | Intelligent Technology Systems NZ{% endblock %}">
   <meta name="twitter:description" content="{% block twitter_description %}Aurex Core helps New Zealand businesses modernise operations through AI, intelligent automation, cloud infrastructure, cybersecurity, and connected technology systems.{% endblock %}">
   <meta name="twitter:image" content="https://www.aurexcore.com{% static 'images/og-image.jpg' %}">
-
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="{% static 'css/main.css' %}?v=20260423f">
-
-  <!-- Alpine.js -->
+  <link rel="stylesheet" href="{% static 'css/main.css' %}?v=20260510">
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
   {% block extra_head %}{% endblock %}
-
-  <!-- Schema.org -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -92,7 +77,6 @@
 </head>
 <body class="bg-ivory antialiased" x-data>
 
-<!-- ── 3D Preloader ─────────────────────────────────────── -->
 <div id="preloader" class="preloader" aria-hidden="true">
   <canvas id="pl-canvas" class="pl-canvas"></canvas>
   <div class="pl-wordmark" id="plWordmark">
@@ -108,18 +92,11 @@
     </div>
   </noscript>
 </div>
-<!-- ── /Preloader ────────────────────────────────────────── -->
 
-<!-- Custom cursor (desktop only — hidden on touch devices via CSS) -->
 <div id="cr" class="cursor-dot"></div>
 <div id="crr" class="cursor-ring"></div>
-
-<!-- Scroll progress bar (all devices) -->
 <div id="scroll-progress"></div>
 
-<!-- ================================================================
-     HEADER
-================================================================ -->
 <header
   id="site-header"
   x-data="{
@@ -138,20 +115,14 @@
 >
   <div class="container-site">
     <div class="flex items-center justify-between h-[72px]">
-
-      <!-- Logo -->
       <a href="{% url 'home' %}" class="flex items-center gap-3 group" aria-label="Aurex Core home">
         <img src="{% static 'images/aurex-nav-logo.png' %}" alt="Aurex Core" class="nav-logo-motion h-9 w-auto" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
         <span class="hidden items-center gap-2 font-sora font-semibold text-graphite text-lg tracking-tight">
           <span class="text-teal">Aurex</span> Core
         </span>
       </a>
-
-      <!-- Desktop nav -->
       <nav class="hidden lg:flex items-center gap-8" aria-label="Main navigation">
         <a href="{% url 'home' %}" class="nav-link">Home</a>
-
-        <!-- Solutions dropdown -->
         <div class="relative" @mouseenter="solutionsOpen = true" @mouseleave="solutionsOpen = false">
           <button
             @click="solutionsOpen = !solutionsOpen"
@@ -164,8 +135,6 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
             </svg>
           </button>
-
-          <!-- Dropdown panel -->
           <div
             x-show="solutionsOpen"
             x-transition:enter="transition ease-premium duration-200"
@@ -182,14 +151,11 @@
             </div>
           </div>
         </div>
-
         <a href="{% url 'industries' %}" class="nav-link">Industries</a>
         <a href="{% url 'about' %}" class="nav-link">About</a>
         <a href="{% url 'insights' %}" class="nav-link">Insights</a>
         <a href="{% url 'contact' %}" class="nav-link">Contact</a>
       </nav>
-
-      <!-- Desktop CTA -->
       <div class="hidden lg:flex items-center gap-4">
         <a href="{% url 'contact' %}" class="btn-primary text-sm px-6 py-2.5">
           Book a Strategy Call
@@ -198,8 +164,6 @@
           </svg>
         </a>
       </div>
-
-      <!-- Mobile menu button -->
       <button
         @click="mobileOpen = !mobileOpen"
         class="lg:hidden flex items-center justify-center w-10 h-10 rounded-xl text-graphite hover:bg-border/50 transition-colors"
@@ -215,8 +179,6 @@
       </button>
     </div>
   </div>
-
-  <!-- Mobile menu -->
   <div
     x-show="mobileOpen"
     x-transition:enter="transition ease-premium duration-250"
@@ -232,8 +194,6 @@
   >
     <div class="container-site py-5 flex flex-col gap-1">
       <a href="{% url 'home' %}" class="px-4 py-3 rounded-xl font-inter font-medium text-sm text-graphite hover:bg-border/50 hover:text-teal transition-colors">Home</a>
-
-      <!-- Mobile solutions accordion -->
       <div x-data="{open: false}">
         <button @click="open = !open" class="w-full flex items-center justify-between px-4 py-3 rounded-xl font-inter font-medium text-sm text-graphite hover:bg-border/50 hover:text-teal transition-colors">
           Solutions
@@ -247,12 +207,10 @@
           <a href="{% url 'networking' %}" class="px-4 py-2.5 rounded-lg text-sm text-slate hover:text-teal hover:bg-border/30 transition-colors">Networking, Devices and Physical Infrastructure</a>
         </div>
       </div>
-
       <a href="{% url 'industries' %}" class="px-4 py-3 rounded-xl font-inter font-medium text-sm text-graphite hover:bg-border/50 hover:text-teal transition-colors">Industries</a>
       <a href="{% url 'about' %}" class="px-4 py-3 rounded-xl font-inter font-medium text-sm text-graphite hover:bg-border/50 hover:text-teal transition-colors">About</a>
       <a href="{% url 'insights' %}" class="px-4 py-3 rounded-xl font-inter font-medium text-sm text-graphite hover:bg-border/50 hover:text-teal transition-colors">Insights</a>
       <a href="{% url 'contact' %}" class="px-4 py-3 rounded-xl font-inter font-medium text-sm text-graphite hover:bg-border/50 hover:text-teal transition-colors">Contact</a>
-
       <div class="pt-3 pb-1 border-t border-border mt-2">
         <a href="{% url 'contact' %}" class="btn-primary w-full justify-center">
           Book a Strategy Call
@@ -262,20 +220,13 @@
   </div>
 </header>
 
-<!-- Main content -->
 <main id="main-content" tabindex="-1">
   {% block content %}{% endblock %}
 </main>
 
-<!-- ================================================================
-     FOOTER
-================================================================ -->
 <footer class="bg-[#ECF0F1] border-t border-border">
   <div class="container-site">
-    <!-- Top footer -->
     <div class="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-
-      <!-- Brand column -->
       <div class="lg:col-span-1">
         <a href="{% url 'home' %}" class="inline-flex items-center gap-2 mb-5">
           <img src="{% static 'images/aurex-nav-logo.png' %}" alt="Aurex Core" class="h-8 w-auto" onerror="this.style.display='none'">
@@ -285,8 +236,6 @@
         </p>
         <p class="font-inter text-xs text-slate/70 mt-4">New Zealand</p>
       </div>
-
-      <!-- Pages -->
       <div>
         <h3 class="font-sora font-semibold text-graphite text-sm mb-4">Company</h3>
         <ul class="flex flex-col gap-2.5">
@@ -298,8 +247,6 @@
           <li><a href="{% url 'contact' %}" class="text-sm text-slate hover:text-teal transition-colors">Contact</a></li>
         </ul>
       </div>
-
-      <!-- Solutions -->
       <div>
         <h3 class="font-sora font-semibold text-graphite text-sm mb-4">Solutions</h3>
         <ul class="flex flex-col gap-2.5">
@@ -310,8 +257,6 @@
           <li><a href="{% url 'networking' %}" class="text-sm text-slate hover:text-teal transition-colors">Networks and Devices</a></li>
         </ul>
       </div>
-
-      <!-- Contact -->
       <div>
         <h3 class="font-sora font-semibold text-graphite text-sm mb-4">Get in Touch</h3>
         <div class="flex flex-col gap-3 mb-5">
@@ -340,8 +285,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Bottom footer -->
     <div class="py-5 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3">
       <p class="text-xs text-slate/60 font-inter">
         &copy; {% now "Y" %} Aurex Core Limited. All rights reserved.
@@ -354,30 +297,11 @@
   </div>
 </footer>
 
-<!-- GSAP -->
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
-
-<!-- Import-map polyfill for Safari <16.4 / older browsers -->
-<script async src="{% static 'js/vendor/es-module-shims.min.js' %}?v=20260423f"></script>
-
-<!-- Three.js import map (self-hosted, zero external runtime deps) -->
-<script type="importmap">
-{
-  "imports": {
-    "three":         "{% static 'js/vendor/three.module.min.js' %}?v=20260423f",
-    "three/addons/": "{% static 'js/vendor/addons/' %}"
-  }
-}
-</script>
-
-<!-- 3D preloader module -->
-<script type="module" src="{% static 'js/preloader3d.js' %}?v=20260423f"></script>
-
-<!-- Main JS -->
-<script src="{% static 'js/main.js' %}?v=20260423f"></script>
-
+<script src="{% static 'js/preloader3d.bundle.min.js' %}?v=20260510"></script>
+<script src="{% static 'js/main.min.js' %}?v=20260510"></script>
 {% block extra_scripts %}{% endblock %}
 </body>
 </html>
