@@ -3,8 +3,10 @@ from django.utils.html import mark_safe
 
 from .models import Enquiry, InsightPost
 from .forms import EnquiryForm
-from django.core.mail import send_mail
-from django.conf import settings
+import logging
+from .graph_mail import send_contact_form_email, GraphMailError
+
+logger = logging.getLogger(__name__)
 
 
 # ── Shared content data ────────────────────────────────────────────────────
@@ -358,23 +360,11 @@ def contact(request):
                 form_success = True
                 form = EnquiryForm()
                 try:
-                    send_mail(
-                        subject='New Enquiry from Aurex Core Website',
-                        message=(
-                            f"Name: {enquiry.full_name}\n"
-                            f"Company: {enquiry.company}\n"
-                            f"Email: {enquiry.email}\n"
-                            f"Phone: {enquiry.phone}\n"
-                            f"Help Topic: {enquiry.help_topic}\n"
-                            f"Contact Method: {enquiry.contact_method}\n"
-                            f"Message: {enquiry.message}\n"
-                        ),
-                        from_email=settings.DEFAULT_FROM_EMAIL,
-                        recipient_list=['hello@aurexcore.nz'],
-                        fail_silently=True,
-                    )
+                    send_contact_form_email(enquiry)
+                except GraphMailError:
+                    logger.exception("Contact form email failed.")
                 except Exception:
-                    pass
+                    logger.exception("Unexpected error sending contact form email.")
 
     return render(request, 'core/contact.html', {
         'form':         form,
@@ -402,23 +392,11 @@ def _landing_view(request, template, topic):
             if enquiry:
                 form_success = True
                 try:
-                    send_mail(
-                        subject='New Enquiry from Aurex Core Website',
-                        message=(
-                            f"Name: {enquiry.full_name}\n"
-                            f"Company: {enquiry.company}\n"
-                            f"Email: {enquiry.email}\n"
-                            f"Phone: {enquiry.phone}\n"
-                            f"Help Topic: {enquiry.help_topic}\n"
-                            f"Contact Method: {enquiry.contact_method}\n"
-                            f"Message: {enquiry.message}\n"
-                        ),
-                        from_email=settings.DEFAULT_FROM_EMAIL,
-                        recipient_list=['hello@aurexcore.nz'],
-                        fail_silently=True,
-                    )
+                    send_contact_form_email(enquiry)
+                except GraphMailError:
+                    logger.exception("Landing page email failed.")
                 except Exception:
-                    pass
+                    logger.exception("Unexpected error sending landing page email.")
     return render(request, template, {
         'form_success': form_success,
         'form_error':   form_error,

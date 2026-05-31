@@ -98,15 +98,22 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Email — console backend in dev, SMTP in production
-if os.environ.get('EMAIL_HOST_PASSWORD'):
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_PORT = 587
-    EMAIL_USE_TLS = True
-    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'aurextest05@gmail.com')
-    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-else:
+# Email — Microsoft Graph for production, console backend for local/dev
+GRAPH_TENANT_ID = os.environ.get('GRAPH_TENANT_ID', '')
+GRAPH_CLIENT_ID = os.environ.get('GRAPH_CLIENT_ID', '')
+GRAPH_CLIENT_SECRET = os.environ.get('GRAPH_CLIENT_SECRET', '')
+GRAPH_SENDER_EMAIL = os.environ.get('GRAPH_SENDER_EMAIL', 'hello@aurexcore.nz')
+CONTACT_FORM_TO_EMAIL = os.environ.get('CONTACT_FORM_TO_EMAIL', 'hello@aurexcore.nz')
+GRAPH_SAVE_TO_SENT = os.environ.get('GRAPH_SAVE_TO_SENT', 'True') == 'True'
+
+USE_GRAPH_EMAIL = all([
+    GRAPH_TENANT_ID,
+    GRAPH_CLIENT_ID,
+    GRAPH_CLIENT_SECRET,
+    GRAPH_SENDER_EMAIL,
+])
+
+if not USE_GRAPH_EMAIL:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    DEFAULT_FROM_EMAIL = 'noreply@aurexcore.nz'
+
+DEFAULT_FROM_EMAIL = GRAPH_SENDER_EMAIL
